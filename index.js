@@ -1,4 +1,5 @@
 // TODO: Include packages needed for this application
+const { Resolver, resolveSoa } = require('dns');
 const fs = require('fs');
 const inquirer = require('inquirer');
 
@@ -6,23 +7,10 @@ const inquirer = require('inquirer');
 // Prompt for inquirer
 inquirer.
 prompt([{
-        type: 'input',
-        message: 'What is the title of your project?',
-        name: 'title',
+        type: 'list',
+        message: 'What would you like to do?',
+        name: 'command questions',
+        choices: ['View All Employees', 'Add Employee', 'Update', 'Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department']
     },
-    {
-        type: 'input',
-        message: 'Write a breif description of your project.',
-        name: 'discription',
-    },
-    {
-        type: 'input',
-        message: 'What was your motivation?.',
-        name: 'motivation',
-    },
-    {
-        type: 'input',
-        message: 'Why did you build this project?.',
-        name: 'why?',
-    },
+
 ])
