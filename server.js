@@ -1,58 +1,34 @@
-const express = require('express');
-const PORT = process.env.PORT || 3001;
-const app = express();
 const db = require('./db/connection');
-const fs = require('fs');
 const inquirer = require('inquirer');
 
-
-//express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-// view functions 
-function viewEmployee() {
-    db.query('SELECT * FROM Employee_db.department', function(err, results) {
-        console.log(results);
-    });
-};
-
-function viewRoles() {
-    db.query('SELECT * FROM Employee_db.rolee', function(err, results) {
-        console.log(results);
-    });
-};
-
-function viewDepartments() {
-    db.query('SELECT * FROM Employee_.department', function(err, results) {
-        console.log(results);
-    });
-};
-
-
-// TODO: Create an array of questions for user input
-// Prompt for inquirer
-inquirer.
-prompt([{
-            type: 'list',
-            message: 'Select What you would like to view',
-            name: 'start',
-            choices: ["View All Employees", "View All Roles", "View Departments"],
+//functionaly of application
+function prompt() {
+    inquirer
+        .prompt([{
+            type: "list",
+            name: "start",
+            message: "What would you like to do?",
+            chioces: ["View", "Add", "Update", "Exit"]
+        }]).then(function(answer) {
+            switch (answer.start) {
+                case "View":
+                    viewAll();
+                    break;
+                case "Add":
+                    addTo();
+                    break;
+                case "Update":
+                    updateEmployee();
+                    break;
+                case "Exit":
+                    console.log('ALL DONE');
+                    break;
+                default:
+                    console.log("default");
 
 
-        },
 
-    ])
-    .then((answer) => {
-        switch (answer.start) {
-            case "View All Employees":
-                viewEmployee();
-                break;
-            case "View All Roles":
-                viewRoles();
-                break;
-            case "View Department":
-                viewDepartments();
-
-
-        }
-    });
+            }
+        });
+}
+//VIEW SET
