@@ -1,19 +1,58 @@
 const express = require('express');
 const PORT = process.env.PORT || 3001;
 const app = express();
+const db = require('./db/connection');
+const fs = require('fs');
+const inquirer = require('inquirer');
 
 
 //express middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+// view functions 
+function viewEmployee() {
+    db.query('SELECT * FROM Employee_db.department', function(err, results) {
+        console.log(results);
+    });
+};
 
-//connect to database
+function viewRoles() {
+    db.query('SELECT * FROM Employee_db.rolee', function(err, results) {
+        console.log(results);
+    });
+};
+
+function viewDepartments() {
+    db.query('SELECT * FROM Employee_.department', function(err, results) {
+        console.log(results);
+    });
+};
 
 
+// TODO: Create an array of questions for user input
+// Prompt for inquirer
+inquirer.
+prompt([{
+            type: 'list',
+            message: 'Select What you would like to view',
+            name: 'start',
+            choices: ["View All Employees", "View All Roles", "View Departments"],
 
 
+        },
 
-app.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`);
+    ])
+    .then((answer) => {
+        switch (answer.start) {
+            case "View All Employees":
+                viewEmployee();
+                break;
+            case "View All Roles":
+                viewRoles();
+                break;
+            case "View Department":
+                viewDepartments();
 
-});
+
+        }
+    });

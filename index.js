@@ -3,27 +3,34 @@ const db = require('./db/connection');
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-
-function callBack() {
+// view functions 
+function viewEmployee() {
     db.query('SELECT * FROM Employee_db.department', function(err, results) {
         console.log(results);
     });
 };
 
-function callFront() {
+function viewRoles() {
     db.query('SELECT * FROM Employee_db.rolee', function(err, results) {
         console.log(results);
     });
 };
+
+function viewDepartments() {
+    db.query('SELECT * FROM Employee_.department', function(err, results) {
+        console.log(results);
+    });
+};
+
 
 // TODO: Create an array of questions for user input
 // Prompt for inquirer
 inquirer.
 prompt([{
             type: 'list',
-            message: 'What would you like to do?',
+            message: 'Select What you would like to view',
             name: 'start',
-            choices: ["View All Employees", "Add Employee", "Update", "Employee Role", "View All Roles", "Add Role", "View All Departments", "Add Department"],
+            choices: ["View All Employees", "View All Roles", "View Departments"],
 
 
         },
@@ -32,11 +39,13 @@ prompt([{
     .then((answer) => {
         switch (answer.start) {
             case "View All Employees":
-                callBack();
+                viewEmployee();
                 break;
-            case "Add Employee":
-                callFront();
+            case "View All Roles":
+                viewRoles();
                 break;
+            case "View Department":
+                viewDepartments();
 
 
         }

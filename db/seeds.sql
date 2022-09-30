@@ -5,5 +5,8 @@ VALUES ('Engineering'),
        ('Sales');
 
 INSERT INTO Employee_db.rolee(title,salary,department_id)
-VALUES ('ur mom',100,1),
+VALUES ('Manager',10000,1,);
+
+INSERT INTO Employee_db.employee(first_name,last_name,rolee_id,manager_id)
+VALUES ('Jonathon','vanausdal','Manager',1);
        
