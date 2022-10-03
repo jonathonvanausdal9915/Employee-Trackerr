@@ -175,6 +175,48 @@ function addRole() {
             )
         })
 }
+function addEmployee() {
+    inquirer
+        .prompt([{
+                name: "first_name",
+                type:"input",
+                message: "What is your Employees first name?",
+            },
+            {
+                name: "last_name",
+                type: "input",
+                message: "What is your Employees last name?",
+                
+            },
+            {
+                name: "rolee_id",
+                type: "input",
+                message: "What is the role id?",
+                
+            },
+            {
+                name: "manager_id",
+                type: "input",
+                message: "What is the manager id?",
+                
+            },
+            
+        ]).then(function(answer) {
+            db.query(
+                "INSERT INTO Employee_db.employee SET ?", {
+                    first_name: answer.first_name,
+                    last_name: answer.last_name,
+                    rolee_id: answer.rolee_id,
+                    manager_id: answer.manager_id
+                },
+                function(err) {
+                    if (err) throw err;
+                    console.log("Updated Employee"+ answer.first_name +"Into the Employees");
+                    start();
+                }
+            )
+        })
+}
 
 function updateEmployee() {
     console.log("update Employee");
