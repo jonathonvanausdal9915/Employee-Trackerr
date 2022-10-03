@@ -1,6 +1,9 @@
 const db = require('./db/connection');
 const inquirer = require('inquirer');
 
+start();
+
+function start(){
 inquirer.
 prompt([{
             type: 'list',
@@ -29,6 +32,7 @@ prompt([{
 
         }
     });
+}
 
 //All View Functions
 function viewAll() {
@@ -61,6 +65,7 @@ function viewEmployee() {
     db.query("SELECT * FROM Employee_db.employee;", function(err, results) {
         if (err) throw err;
         console.log(results);
+        start();
 
     })
 }
@@ -69,7 +74,7 @@ function viewDepartment() {
     db.query("SELECT * FROM Employee_db.department;", function(err, results) {
         if (err) throw err;
         console.table(results);
-        prompty();
+        start();
     })
 }
 
@@ -77,7 +82,7 @@ function viewRoles() {
     db.query("SELECT * FROM Employee_db.rolee;", function(err, results) {
         if (err) throw err;
         console.table(results);
-        prompty();
+        start();
     })
 }
 //All Add Functions
