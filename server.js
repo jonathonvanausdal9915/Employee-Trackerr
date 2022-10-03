@@ -1,35 +1,35 @@
 const db = require('./db/connection');
 const inquirer = require('inquirer');
 
-function prompty() {
-    inquirer
-        .prompt([{
-            type: "list",
-            name: "start",
-            message: "What would you like to do?",
-            chioces: ["View", "Add", "Update", "Exit"]
-        }]).then(function(answer) {
-            switch (answer.start) {
-                case "View":
-                    viewAll();
-                    break;
-                case "Add":
-                    add();
-                    break;
-                case "Update":
-                    updateEmployee();
-                    break;
-                case "Exit":
-                    console.log('ALL DONE');
-                    break;
-                default:
-                    console.log("default");
+inquirer.
+prompt([{
+            type: 'list',
+            message: 'What would you like to do?',
+            name: 'start',
+            choices: ["View", "Add", "Update", "Exit"],
 
 
+        },
 
-            }
-        });
-}
+    ])
+    .then((answer) => {
+        switch (answer.start) {
+            case "View":
+                viewAll();
+                break;
+            case "Add":
+                add();
+                break;
+            case "Update":
+                updateEmployee();
+                break;
+            case "Exit":
+                console.log("ALL DONE");
+
+
+        }
+    });
+
 //All View Functions
 function viewAll() {
     inquirer
@@ -37,7 +37,7 @@ function viewAll() {
             type: "list",
             name: "view",
             message: "What would you like to view?",
-            chioces: ["All employees", "View by department", "View by Role"]
+            choices: ["All employees", "View by department", "View by Role"]
         }]).then(function(answer) {
             switch (answer.start) {
                 case "All employees":
@@ -58,15 +58,15 @@ function viewAll() {
 }
 
 function viewEmployee() {
-    db.query("SELECT * FROM Employee.db.employee", function(err, results) {
+    db.query("SELECT * FROM Employee_db.employee;", function(err, results) {
         if (err) throw err;
-        console.table(results);
-        prompty();
+        console.log(results);
+
     })
 }
 
 function viewDepartment() {
-    db.query("SELECT * FROM Employee.db.department", function(err, results) {
+    db.query("SELECT * FROM Employee_db.department;", function(err, results) {
         if (err) throw err;
         console.table(results);
         prompty();
@@ -74,7 +74,7 @@ function viewDepartment() {
 }
 
 function viewRoles() {
-    db.query("SELECT * FROM Employee.db.rolee", function(err, results) {
+    db.query("SELECT * FROM Employee_db.rolee;", function(err, results) {
         if (err) throw err;
         console.table(results);
         prompty();
@@ -88,14 +88,14 @@ function add() {
             type: "list",
             name: "add",
             message: "What would you like to add?",
-            chioces: ["Department", "Employee role", "Employee"]
+            choices: ["Department", "Employee role", "Employee"]
         }]).then(function(answer) {
             switch (answer.start) {
                 case "Department":
                     addDepartment();
                     break;
                 case "Employee role":
-                    addeRole();
+                    addRole();
                     break;
                 case "Employee":
                     addEmployee();
@@ -125,4 +125,52 @@ function addDepartment() {
                 }
             )
         })
+}
+
+function addRole() {
+    inquirer
+        .prompt([{
+                type: "input",
+                name: "role",
+                message: "Enter role tilte:",
+            },
+            {
+                name: "salary",
+                type: "number",
+                message: "Enter salary",
+                validate: function(value) {
+                    if (isNaN(value) === false) {
+                        return true;
+                    }
+                    return false;
+                }
+            },
+            {
+                name: "department_id",
+                type: "number",
+                message: "Enter department id",
+                validate: function(value) {
+                    if (isNaN(value) === false) {
+                        return true;
+                    }
+                }
+            }
+        ]).then(function(answer) {
+            db.query(
+                "INSERT INTO role SET ?", {
+                    title: answer.role,
+                    salary: answer.salary,
+                    department_id: answer.department_id
+                },
+                function(err) {
+                    if (err) throw err;
+                    console.log("Employee Role updated with" + answer.role);
+                    prompty();
+                }
+            )
+        })
+}
+
+function updateEmployee() {
+    console.log("update Employee");
 }
