@@ -95,7 +95,7 @@ function add() {
             message: "What would you like to add?",
             choices: ["Department", "Employee role", "Employee"]
         }]).then(function(answer) {
-            switch (answer.start) {
+            switch (answer.add) {
                 case "Department":
                     addDepartment();
                     break;
@@ -126,7 +126,7 @@ function addDepartment() {
                 function(err) {
                     if (err) throw err;
                     console.log("Departments updated with " + answer.department);
-                    prompty();
+                    start();
                 }
             )
         })
@@ -162,7 +162,7 @@ function addRole() {
             }
         ]).then(function(answer) {
             db.query(
-                "INSERT INTO role SET ?", {
+                "INSERT INTO Employee_db.rolee SET ?", {
                     title: answer.role,
                     salary: answer.salary,
                     department_id: answer.department_id
@@ -170,7 +170,7 @@ function addRole() {
                 function(err) {
                     if (err) throw err;
                     console.log("Employee Role updated with" + answer.role);
-                    prompty();
+                    start();
                 }
             )
         })
