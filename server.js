@@ -1,7 +1,6 @@
 const db = require('./db/connection');
 const inquirer = require('inquirer');
 
-//functionaly of application
 function prompty() {
     inquirer
         .prompt([{
@@ -15,7 +14,7 @@ function prompty() {
                     viewAll();
                     break;
                 case "Add":
-                    addTo();
+                    add();
                     break;
                 case "Update":
                     updateEmployee();
@@ -31,8 +30,8 @@ function prompty() {
             }
         });
 }
-//VIEW SET
-function view() {
+//All View Functions
+function viewAll() {
     inquirer
         .prompt([{
             type: "list",
@@ -44,11 +43,62 @@ function view() {
                 case "All employees":
                     viewEmployee();
                     break;
-                case "Add":
+                case "View by department":
                     viewDepartment();
                     break;
-                case "Update":
+                case "View by Role":
                     viewRoles();
+                default:
+                    console.log("default");
+
+
+
+            }
+        });
+}
+
+function viewEmployee() {
+    db.query("SELECT * FROM Employee.db.employee", function(err, results) {
+        if (err) throw err;
+        console.table(results);
+        prompty();
+    })
+}
+
+function viewDepartment() {
+    db.query("SELECT * FROM Employee.db.department", function(err, results) {
+        if (err) throw err;
+        console.table(results);
+        prompty();
+    })
+}
+
+function viewRoles() {
+    db.query("SELECT * FROM Employee.db.rolee", function(err, results) {
+        if (err) throw err;
+        console.table(results);
+        prompty();
+    })
+}
+//All Add Functions
+
+function add() {
+    inquirer
+        .prompt([{
+            type: "list",
+            name: "add",
+            message: "What would you like to add?",
+            chioces: ["Department", "Employee role", "Employee"]
+        }]).then(function(answer) {
+            switch (answer.start) {
+                case "Department":
+                    addDepartment();
+                    break;
+                case "Employee role":
+                    addEmployeeRole();
+                    break;
+                case "Employee":
+                    addEmployee();
                 default:
                     console.log("default");
 
