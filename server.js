@@ -41,16 +41,16 @@ function viewAll() {
             type: "list",
             name: "view",
             message: "What would you like to view?",
-            choices: ["All employees", "View by department", "View by Role"]
+            choices: ["View all employees", "View all departments", "View all roles"]
         }]).then(function(answer) {
             switch (answer.view) {
-                case "All employees":
+                case "View all employees":
                     viewEmployee();
                     break;
-                case "View by department":
+                case "View all departments":
                     viewDepartment();
                     break;
-                case "View by Role":
+                case "View all roles":
                     viewRoles();
                 default:
                     console.log("default");
