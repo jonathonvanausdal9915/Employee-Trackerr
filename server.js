@@ -39,7 +39,7 @@ function viewAll() {
             message: "What would you like to view?",
             choices: ["All employees", "View by department", "View by Role"]
         }]).then(function(answer) {
-            switch (answer.start) {
+            switch (answer.view) {
                 case "All employees":
                     viewEmployee();
                     break;
