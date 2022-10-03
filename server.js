@@ -95,7 +95,7 @@ function add() {
                     addDepartment();
                     break;
                 case "Employee role":
-                    addEmployeeRole();
+                    addeRole();
                     break;
                 case "Employee":
                     addEmployee();
@@ -106,4 +106,23 @@ function add() {
 
             }
         });
+}
+
+function addDepartment() {
+    inquirer
+        .prompt([{
+            type: "input",
+            name: "department",
+            message: "What would you like the department name to be?",
+
+        }]).then(function(answer) {
+            db.query(
+                "INSERT INTO department VALUES (DEFAULT, ?)", [answer.department],
+                function(err) {
+                    if (err) throw err;
+                    console.log("Departments updated with " + answer.department);
+                    prompty();
+                }
+            )
+        })
 }
