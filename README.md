@@ -29,4 +29,4 @@ screenshot: ![alt text](assets/images/screenshot.png)
 ## Links:
 * Github link: https://github.com/jonathonvanausdal9915/Employee-Trackerr
 * 
-* video link: https://drive.google.com/file/d/1PV7XfqAP_dV4-0kq7nU1YRb4zJXeVI6K/view?usp=sharing
+* video link: https://drive.google.com/file/d/1CCAaydBEqSYuO6L9P02p98HMF9m9YBIj/view?usp=sharing
